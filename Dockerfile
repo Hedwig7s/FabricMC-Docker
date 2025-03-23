@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre
+FROM ghcr.io/graalvm/jdk-community:21
 
 EXPOSE 25565/tcp
 EXPOSE 8100/tcp
@@ -16,9 +16,9 @@ WORKDIR /home/server
 
 COPY src/main.sh /main.sh
 
-RUN apt update &&\
-    apt install -y curl findutils unar &&\
-    rm -rf /var/lib/apt/lists/*
+RUN microdnf install -y epel-release &&\
+    microdnf install -y unar &&\
+    microdnf install -y findutils
 
 RUN chmod +x /main.sh
 
